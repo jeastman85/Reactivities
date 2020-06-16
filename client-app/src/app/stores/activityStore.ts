@@ -44,12 +44,10 @@ class ActivityStore {
         });
         this.loadingInitial = false;
       });
-      console.log(this.groupActivitiesByDate(activities));
     } catch (error) {
       runInAction("load activities error", () => {
         this.loadingInitial = false;
       });
-      console.log(error);
     }
   };
 
@@ -86,7 +84,7 @@ class ActivityStore {
     this.submitting = true;
     try {
       await agent.Activities.create(activity);
-      runInAction("creating activity", () => {
+      runInAction("create activity", () => {
         this.activityRegistry.set(activity.id, activity);
         this.submitting = false;
       });
@@ -94,13 +92,8 @@ class ActivityStore {
       runInAction("create activity error", () => {
         this.submitting = false;
       });
-
       console.log(error);
     }
-  };
-
-  @action cancelSelectedActivity = () => {
-    this.activity = null;
   };
 
   @action editActivity = async (activity: IActivity) => {
@@ -110,14 +103,12 @@ class ActivityStore {
       runInAction("editing activity", () => {
         this.activityRegistry.set(activity.id, activity);
         this.activity = activity;
-
         this.submitting = false;
       });
     } catch (error) {
       runInAction("edit activity error", () => {
         this.submitting = false;
       });
-
       console.log(error);
     }
   };
@@ -128,7 +119,6 @@ class ActivityStore {
   ) => {
     this.submitting = true;
     this.target = event.currentTarget.name;
-
     try {
       await agent.Activities.delete(id);
       runInAction("deleting activity", () => {
@@ -141,10 +131,9 @@ class ActivityStore {
         this.submitting = false;
         this.target = "";
       });
-
       console.log(error);
     }
   };
 }
 
-export default createContext(new ActivityStore()); //COMMENT 123
+export default createContext(new ActivityStore());
