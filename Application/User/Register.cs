@@ -43,14 +43,13 @@ namespace Application.User
         public class Handler : IRequestHandler<Command, User>
         {
             private readonly DataContext _context;
-            private readonly IJwtGenerator _jwtGenerator;
             private readonly UserManager<AppUser> _userManager;
+            private readonly IJwtGenerator _jwtGenerator;
             public Handler(DataContext context, UserManager<AppUser> userManager, IJwtGenerator jwtGenerator)
             {
 
                 _jwtGenerator = jwtGenerator;
                 _userManager = userManager;
-
                 _context = context;
             }
 
